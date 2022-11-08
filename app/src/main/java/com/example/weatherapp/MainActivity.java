@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.weatherapp.Api.ApiService;
 import com.example.weatherapp.Models.WeatherModel;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtWeather;
     Button btnGetWeather;
     EditText edtLocation;
+    Toolbar toolbars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 getWeather(edtLocation.getText().toString());
             }
         });
-        getWeather("HaNoi");
+        getWeather("Đà Nẵng");
     }
 
     public void getWeather(String location) {

@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiService {
+    // api image :  http://openweathermap.org/img/wn/10d@2x.png
     // api 1 weather: https://api.openweathermap.org/data/2.5/weather?q=Hanoi&appid=32f70b1ec05577d8f0a6759b421515d7
     // api list weather: https://api.openweathermap.org/data/2.5/forecast?q=Hanoi&appid=32f70b1ec05577d8f0a6759b421515d7
     final String KEY_ID = "32f70b1ec05577d8f0a6759b421515d7";

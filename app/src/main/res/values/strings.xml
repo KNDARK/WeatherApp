@@ -4,4 +4,7 @@
     <string name="get_weather">Get weather</string>
     <string name="location">Nhập nơi ở</string>
     <string name="location_notfound">Không tìm thấy địa điểm</string>
+    <string name="tv_Location">Location</string>
+    <string name="_0_c">0°C</string>
+    <string name="percent_3">3%</string>
 </resources>
