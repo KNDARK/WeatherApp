@@ -44,7 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_SHORT).show();
                 WeatherModel weather = response.body();
                 if (weather != null && weather.cod != 404) {
-                    txtWeather.setText(weather.weather.get(0).description);
+                    String text = weather.weather.get(0).description + "\n"
+                            + weather.weather.get(0).icon + "\n"
+                            + "Tốc độ gió: "+ weather.wind.speed + "\n"
+                            + "Nhiệt độ: "+ weather.main.temp + "\n"
+                            + "Quốc gia: "+ weather.sys.country + "\n"
+                            + "Thành phố: "+ weather.name + "\n";
+                    txtWeather.setText(text);
                 }
                 else {
                     txtWeather.setText(R.string.location_notfound);
