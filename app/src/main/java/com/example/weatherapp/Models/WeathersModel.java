@@ -6,6 +6,6 @@ public class WeathersModel {
     public String cod;
     public int message;
     public int cnt;
-    public ArrayList<List> list;
+    public ArrayList<WeatherModel> list;
     public City city;
 }

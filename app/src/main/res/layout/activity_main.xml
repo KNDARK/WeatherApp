@@ -24,6 +24,7 @@
             android:layout_height="match_parent"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:id="@+id/tv_location"
             android:textColor="@color/color_text_default"
             android:gravity="center"
             android:text="@string/tv_Location"/>
@@ -37,6 +38,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:id="@+id/imv_icon_weather"
             android:src="@drawable/cloud_default"/>
 
         <TextView
@@ -45,6 +47,7 @@
             android:text="@string/_0_c"
             android:textColor="@color/color_text_default"
             android:textStyle="bold"
+            android:id="@+id/tv_temperature"
             android:textSize="50sp"
             android:gravity="center"/>
         <TextView
@@ -61,6 +64,7 @@
             android:text="Clear Cloudy"
             android:gravity="center"
             android:textSize="25sp"
+            android:id="@+id/tv_description"
             android:textColor="@color/blue_low"/>
     </LinearLayout>
 
@@ -87,6 +91,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"
                 android:text="@string/percent_3"
+                android:id="@+id/tv_humidity"
                 android:textColor="@color/color_text_default"
                 android:gravity="center"
                 android:textSize="15sp"/>
@@ -109,21 +114,23 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4"
                 android:text="@string/percent_3"
+                android:id="@+id/tv_wind_speed"
                 android:textColor="@color/color_text_default"
                 android:gravity="center"
                 android:textSize="15sp"/>
         </LinearLayout>
 
-
-
     </LinearLayout>
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_weather"
-        android:textSize="30sp"
-        android:text="@string/weather"/>
+        android:layout_height="200dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_weather_hour"
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
