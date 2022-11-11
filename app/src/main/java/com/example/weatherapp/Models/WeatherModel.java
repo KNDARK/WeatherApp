@@ -16,6 +16,8 @@ public class WeatherModel {
     public int id;
     public String name;
     public int cod;
+    public String dt_txt;
+    public Rain rain;
 
     public WeatherModel(Coord coord, ArrayList<Weather> weather, String base, Main main, int visibility, Wind wind, Clouds clouds, int dt, Sys sys, int timezone, int id, String name, int cod) {
         this.coord = coord;

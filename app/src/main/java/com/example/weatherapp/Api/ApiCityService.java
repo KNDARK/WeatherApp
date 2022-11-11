@@ -1,5 +1,6 @@
 package com.example.weatherapp.Api;
 
+import com.example.weatherapp.Models.CityModel;
 import com.example.weatherapp.Models.WeatherModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,18 +12,18 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiCityService {
-    // Api thành phố: https://provinces.open-api.vn/api/?depth=2
+    // Api thành phố: https://api.mysupership.vn/v1/partner/areas/province
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .create();
 
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("https://provinces.open-api.vn/")
+            .baseUrl("https://api.mysupership.vn/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
 
-    @GET("api/?depth=2")
-    Call<WeatherModel> getCity();
+    @GET("v1/partner/areas/province")
+    Call<CityModel> getCity();
 }
