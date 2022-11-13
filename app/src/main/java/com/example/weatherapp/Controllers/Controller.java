@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.example.weatherapp.Adapters.WeatherAdapter;
 import com.example.weatherapp.Api.ApiService;
-import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.Models.WeatherModel;
 import com.example.weatherapp.Models.WeathersModel;
 import com.example.weatherapp.R;

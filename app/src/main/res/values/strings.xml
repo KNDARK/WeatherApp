@@ -7,4 +7,6 @@
     <string name="tv_Location">Location</string>
     <string name="_0_c">0°C</string>
     <string name="percent_3">3%</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
