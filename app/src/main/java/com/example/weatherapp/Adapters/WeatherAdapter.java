@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.Models.WeatherModel;
 import com.example.weatherapp.R;
 
@@ -28,6 +30,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     public void setData(ArrayList<WeatherModel> list){
         this.listWeather = list;
+        Log.d("@@@@", "SetData: "+ list);
         notifyDataSetChanged();
     }
 
@@ -44,9 +47,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         if (weather == null) return;
         int temp = (int) (Double.parseDouble(String.valueOf(weather.main.temp)) - 273.15);
         String temperature = temp + "°C";
+        Log.d("@@@@", "onBindViewHolder: "+ temperature);
+        String pic = "https://openweathermap.org/img/wn/" + weather.weather.get(0).icon +"@2x.png";
+        Glide.with(mContext)
+                .load(pic)
+                .fitCenter()
+                .error(R.drawable.cloud_default)
+                .into(holder.imvIconWeather);
         holder.tvTemperature.setText(temperature);
         holder.tvHour.setText(weather.dt_txt.split(" ")[1]);
-        Log.d("@@@@", "onBindViewHolder: "+ listWeather.get(position).main.temp);
     }
 
     @Override
@@ -61,7 +70,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
         public WeatherViewHolder(@NonNull View itemView) {
             super(itemView);
-
             tvTemperature = itemView.findViewById(R.id.tv_temperature);
             tvHour = itemView.findViewById(R.id.tv_hour);
             imvIconWeather = itemView.findViewById(R.id.imv_icon_weather);
