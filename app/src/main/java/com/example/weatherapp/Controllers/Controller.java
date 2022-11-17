@@ -46,4 +46,9 @@ public class Controller {
     public String convert_city(String city){
         return city.contains("Tỉnh") ? city.replace("Tỉnh ","") : city.replace("Thành phố ","");
     }
+    public boolean check_login(String email, String password){
+        if (email.equals("admin") && password.equals("123")) return true;
+        return false;
+    }
+
 }

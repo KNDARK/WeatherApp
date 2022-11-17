@@ -22,7 +22,10 @@ import com.example.weatherapp.Models.WeatherModel;
 import com.example.weatherapp.Models.WeathersModel;
 import com.example.weatherapp.databinding.FragmentNowBinding;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +45,8 @@ public class NowFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     ArrayList<WeatherModel> weathers = new ArrayList<WeatherModel>();
     WeatherAdapter weatherAdapter;
+    public boolean run = false;
+    int threadCount = 0;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -75,6 +80,10 @@ public class NowFragment extends Fragment {
         ApiService.apiService.getWeather(locationConvert, ApiService.KEY_ID, ApiService.LANGUAGE).enqueue(new Callback<WeatherModel>() {
             @Override
             public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
+                Locale locale = new Locale("vi", "VN");
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
+                String date = dateFormat.format(new Date());
+
                 Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
                 WeatherModel weather = response.body();
                 if (weather != null && weather.cod == 200) {
@@ -88,6 +97,7 @@ public class NowFragment extends Fragment {
                             .into(binding.imvIconWeather);
                     int temp = (int) (Double.parseDouble(String.valueOf(weather.main.temp)) - 273.15);
                     String temperature = temp + "°C";
+                    binding.tvDate.setText(date);
                     binding.tvTemperature.setText(temperature);
                     binding.tvDescription.setText(weather.weather.get(0).description);
                     binding.tvHumidity.setText(String.valueOf(weather.main.humidity));
@@ -138,6 +148,27 @@ public class NowFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_main));
+    }
+
+    public void worker(){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (run){
+                    try {
+                        threadCount++;
+                        getWeather("Thành phố Đà Nẵng");
+                        get_weather_hour("Thành phố Đà Nẵng");
+                        Log.d("@@@@", "run: "+ threadCount);
+                        Thread.sleep(6000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -160,6 +191,15 @@ public class NowFragment extends Fragment {
                 getWeather(binding.edtLocation.getText().toString());
             }
         });
+
+        binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                run = false;
+                ((MainActivity)getActivity()).logout();
+            }
+        });
+        worker();
         return view;
     }
 }
