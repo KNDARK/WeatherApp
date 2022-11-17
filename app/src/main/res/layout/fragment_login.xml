@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_backgroud"
     tools:context=".Login">
 
     <!-- TODO: Update blank fragment layout -->
@@ -32,8 +31,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#EF6115"
-                    android:textSize="34dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="34sp"
                     android:textStyle="bold"
                     android:text="Login Weather"/>
             </LinearLayout>
@@ -41,7 +40,7 @@
                 android:layout_gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/wind"/>
+                android:background="@drawable/icon_weather_login"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -60,6 +59,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:id="@+id/edt_email"
                     android:hint="Enter your User"/>
             </LinearLayout>
             <LinearLayout
@@ -76,7 +77,9 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/edt_password"
                     android:hint="Enter your password"
+                    android:textColor="@color/white"
                     android:inputType="textPassword"/>
             </LinearLayout>
         </LinearLayout>
@@ -90,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sign in"
+                android:id="@+id/btn_sign_in"
                 android:backgroundTint="#03A9F4"/>
             <Button
                 android:layout_margin="10dp"

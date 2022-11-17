@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Home"
+        android:icon="@drawable/water_drop"
+        app:showAsAction="ifRoom"/>
+    <item android:title="Hour"
+        android:icon="@drawable/icon_weather_login"
+        app:showAsAction="ifRoom"/>
+    <item android:title="Date"
+        android:icon="@drawable/cloud_default"
+        app:showAsAction="ifRoom"/>
+</menu>

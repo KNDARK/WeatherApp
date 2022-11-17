@@ -3,13 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:ignore="NestedWeights"
-    android:background="@color/background"
+    android:background="@drawable/background_main"
+    android:id="@+id/layout_main"
+    android:weightSum="100"
     tools:context=".MainActivity">
 
-    <fragment
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment"/>
+        android:layout_height="0dp"
+        android:layout_weight="93"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/bottom_nav"
+        android:background="@color/background_low"
+        app:menu="@menu/bottom_navigation_menu"
+        android:layout_weight="7"/>
 </LinearLayout>
