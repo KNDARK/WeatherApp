@@ -99,7 +99,8 @@
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="Register"
+                android:id="@+id/btn_register"
                 android:backgroundTint="#4CAF50"/>
         </LinearLayout>
     </LinearLayout>

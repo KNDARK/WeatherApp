@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:ignore="NestedWeights"
+    tools:ignore="NestedWeights,MissingConstraints"
     android:background="@drawable/background_main"
     android:id="@+id/layout_main"
-    android:weightSum="100"
     tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tool_bar_layout"
+        android:backgroundTint="@color/background_low">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Title"
+            app:menu="@menu/tool_bar"
+            app:navigationIcon="@drawable/menu_icon"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:backgroundTint="@color/transparent"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="93"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="55dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -23,5 +41,14 @@
         android:id="@+id/bottom_nav"
         android:background="@color/background_low"
         app:menu="@menu/bottom_navigation_menu"
-        android:layout_weight="7"/>
-</LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/fragment"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/menu_left"
+        app:menu="@menu/menu_left"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
