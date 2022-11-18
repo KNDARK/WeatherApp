@@ -88,7 +88,7 @@ public class NowFragment extends Fragment {
                 WeatherModel weather = response.body();
                 if (weather != null && weather.cod == 200) {
                     Log.d("@@@@", "OK: "+weather.name);
-                    binding.tvLocation.setText(weather.name);
+                    ((MainActivity)getActivity()).toolbar.setTitle(weather.name);
                     String pic = "https://openweathermap.org/img/wn/" + weather.weather.get(0).icon +"@2x.png";
                     Glide.with(getContext())
                             .load(pic)
@@ -124,8 +124,11 @@ public class NowFragment extends Fragment {
             public void onResponse(Call<WeathersModel> call, Response<WeathersModel> response) {
                 WeathersModel weather = response.body();
                 if (weather != null && weather.cod.equals("200")) {
+                    int count = 0;
                     for (WeatherModel i : weather.list){
-                        weathers.add(i);
+                        if (count < 6) weathers.add(i);
+                        else break;
+                        count++;
                     }
                     weatherAdapter.setData(weathers);
                 }
@@ -148,6 +151,7 @@ public class NowFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((MainActivity)getActivity()).show_auth();
         ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_main));
     }
 
@@ -189,14 +193,6 @@ public class NowFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getWeather(binding.edtLocation.getText().toString());
-            }
-        });
-
-        binding.btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                run = false;
-                ((MainActivity)getActivity()).logout();
             }
         });
         worker();

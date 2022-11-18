@@ -53,6 +53,7 @@ public class register extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((MainActivity)getActivity()).hidden_auth();
     }
 
     @Override

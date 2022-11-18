@@ -75,6 +75,7 @@ public class Login extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((MainActivity)getActivity()).hidden_auth();
         if (((MainActivity)getActivity()).check_login())
             ((MainActivity)getActivity()).setFragment(new NowFragment());
         else {
@@ -82,7 +83,7 @@ public class Login extends Fragment {
             ContextWrapper contextWrapper = new ContextWrapper(getContext());
             File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
             myInternalFile = new File(directory, fileName);
-            ((MainActivity)getActivity()).bottomNav.setVisibility(View.GONE);
+            ((MainActivity)getActivity()).hidden_auth();
         }
     }
 
@@ -91,6 +92,13 @@ public class Login extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.register_backgroud));
+                ((MainActivity)getActivity()).setFragment(new register());
+            }
+        });
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

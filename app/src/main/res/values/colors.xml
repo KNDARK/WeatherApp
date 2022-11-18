@@ -12,4 +12,5 @@
     <color name="yellow">#FFDD00</color>
     <color name="blue_low">#00CBFF</color>
     <color name="background_low">#2B0028</color>
+    <color name="transparent">#00000000</color>
 </resources>
