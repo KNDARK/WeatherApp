@@ -13,4 +13,5 @@
     <color name="blue_low">#00CBFF</color>
     <color name="background_low">#2B0028</color>
     <color name="transparent">#00000000</color>
+    <color name="item_city">#3F3E43</color>
 </resources>

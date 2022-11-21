@@ -77,7 +77,7 @@ public class Login extends Fragment {
         }
         ((MainActivity)getActivity()).hidden_auth();
         if (((MainActivity)getActivity()).check_login())
-            ((MainActivity)getActivity()).setFragment(new NowFragment());
+            ((MainActivity)getActivity()).setFragment( ((MainActivity)getActivity()).fgNow);
         else {
             ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_default));
             ContextWrapper contextWrapper = new ContextWrapper(getContext());
@@ -113,7 +113,7 @@ public class Login extends Fragment {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    ((MainActivity)getActivity()).setFragment(new NowFragment());
+                    ((MainActivity)getActivity()).setFragment(((MainActivity)getActivity()).fgNow);
                 }
                 else Toast.makeText(getContext(), "Failed login", Toast.LENGTH_SHORT).show();
             }

@@ -1,6 +1,8 @@
 package com.example.weatherapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.weatherapp.ItemDetailFragment;
 import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.Models.WeatherModel;
 import com.example.weatherapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>{
 
@@ -34,6 +36,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
     @NonNull
     @Override
     public WeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,7 +49,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WeatherViewHolder holder, @SuppressLint("RecyclerView") int position) {
         WeatherModel weather = listWeather.get(position);
         if (weather == null) return;
         int temp = (int) (Double.parseDouble(String.valueOf(weather.main.temp)) - 273.15);
@@ -56,6 +63,14 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
                 .into(holder.imvIconWeather);
         holder.tvTemperature.setText(temperature);
         holder.tvHour.setText(weather.dt_txt.split(" ")[1]);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WeatherModel x = listWeather.get(position);
+                ((MainActivity)mContext).dataSend = x;
+                ((MainActivity)mContext).show_item_detail(new ItemDetailFragment());
+            }
+        });
     }
 
     @Override
