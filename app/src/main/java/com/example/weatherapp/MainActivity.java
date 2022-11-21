@@ -2,9 +2,8 @@ package com.example.weatherapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.NestedScrollView;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,17 +12,15 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.transition.Explode;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.weatherapp.Models.WeatherModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -46,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     public FrameLayout layout;
     public NavigationView menuLeft;
     File myInternalFile;
+    public NowFragment fgNow = new NowFragment();
+    public HourFragment fgHour = new HourFragment();
+    public DateFragment fgDate = new DateFragment();
+    public WeatherModel dataSend;
 
 
     @Override
@@ -64,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 show_menu_left();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.toString().equals("location")){
+                    setAnimation();
+                    show_item_detail(new LocationFragment());
+                }
+                return false;
             }
         });
         menuLeft = layoutMain.findViewById(R.id.menu_left);
@@ -90,20 +101,49 @@ public class MainActivity extends AppCompatActivity {
                 switch (action) {
                     case "Home":
                         setAnimation();
-                        setFragment(new NowFragment());
+                        setFragment(fgNow);
                         break;
                     case "Hour":
                         setAnimation();
-                        setFragment(new HourFragment());
+                        setFragment(fgHour);
                         break;
                     case "Date":
                         setAnimation();
-                        setFragment(new DateFragment());
+                        setFragment(fgDate);
                         break;
                 }
                 return true;
             }
         });
+    }
+
+    public void set_view_location(String city){
+        setFragment(fgNow);
+        fgNow.setLocation(city);
+        fgNow.getWeather();
+        fgNow.get_weather_hour();
+    }
+
+    public void call_back(Fragment fragment){
+        setAnimation();
+        removeFragment(fragment);
+    }
+
+    public void refresh_toolbar(){
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.menu_icon));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                show_menu_left();
+            }
+        });
+    }
+    public void show_item_detail(Fragment fragment) {
+        setAnimation();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment, fragment);
+        fragmentTransaction.commit();
     }
 
     public void setAnimation(){
@@ -113,12 +153,19 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.beginDelayedTransition(layoutMain, explore);
     }
 
-    protected void setFragment(Fragment fragment) {
+    public void setFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment, fragment);
         fragmentTransaction.commit();
     }
+    public void removeFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.remove(fragment);
+        fragmentTransaction.commit();
+    }
+
 
     public boolean check_login(){
         String myData = "";

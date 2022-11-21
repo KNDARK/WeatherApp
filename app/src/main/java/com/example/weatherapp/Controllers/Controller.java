@@ -50,5 +50,10 @@ public class Controller {
         if (email.equals("admin") && password.equals("123")) return true;
         return false;
     }
+    public String prc_temp(Double temp_str){
+        int temp = (int) (Double.parseDouble(String.valueOf(temp_str)) - 273.15);
+        String temperature = temp + "°C";
+        return temperature;
+    }
 
 }

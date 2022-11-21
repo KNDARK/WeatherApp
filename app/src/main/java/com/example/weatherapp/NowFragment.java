@@ -3,12 +3,14 @@ package com.example.weatherapp;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -46,6 +48,7 @@ public class NowFragment extends Fragment {
     ArrayList<WeatherModel> weathers = new ArrayList<WeatherModel>();
     WeatherAdapter weatherAdapter;
     public boolean run = false;
+    public String location = "Thành phố Đà Nẵng";
     int threadCount = 0;
 
     // TODO: Rename and change types of parameters
@@ -73,8 +76,11 @@ public class NowFragment extends Fragment {
     public NowFragment() {
         // Required empty public constructor
     }
+    public void setLocation(String location){
+        this.location = location;
+    }
 
-    public void getWeather(String location) {
+    public void getWeather() {
         Controller x = new Controller();
         String locationConvert = x.convert_city(location);
         ApiService.apiService.getWeather(locationConvert, ApiService.KEY_ID, ApiService.LANGUAGE).enqueue(new Callback<WeatherModel>() {
@@ -116,7 +122,7 @@ public class NowFragment extends Fragment {
         });
     }
 
-    public void get_weather_hour(String location){
+    public void get_weather_hour(){
         Controller action = new Controller();
         String locationConvert = action.convert_city(location);
         ApiService.apiService.getListWeather(locationConvert, ApiService.KEY_ID, ApiService.LANGUAGE).enqueue(new Callback<WeathersModel>() {
@@ -153,6 +159,7 @@ public class NowFragment extends Fragment {
         }
         ((MainActivity)getActivity()).show_auth();
         ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_main));
+        ((MainActivity)getActivity()).refresh_toolbar();
     }
 
     public void worker(){
@@ -163,8 +170,8 @@ public class NowFragment extends Fragment {
                 while (run){
                     try {
                         threadCount++;
-                        getWeather("Thành phố Đà Nẵng");
-                        get_weather_hour("Thành phố Đà Nẵng");
+                        getWeather();
+                        get_weather_hour();
                         Log.d("@@@@", "run: "+ threadCount);
                         Thread.sleep(6000);
                     } catch (InterruptedException e) {
@@ -186,15 +193,8 @@ public class NowFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
         binding.rcvWeatherHour.setLayoutManager(linearLayoutManager);
         binding.rcvWeatherHour.setAdapter(weatherAdapter);
-        getWeather("Thành phố Đà Nẵng");
-        get_weather_hour("Thành phố Đà Nẵng");
-
-        binding.btnGetWeather.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getWeather(binding.edtLocation.getText().toString());
-            }
-        });
+        getWeather();
+        get_weather_hour();
         worker();
         return view;
     }

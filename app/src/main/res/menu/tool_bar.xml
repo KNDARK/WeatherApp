@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/favorite"
-        android:icon="@drawable/logout_icon_item"
-        android:title="ok"
-        android:contentDescription="ok"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/location_icon"
-        android:title="ok2"
-        android:contentDescription="ok2"
+        android:title="location"
+        android:contentDescription="location"
         app:showAsAction="ifRoom" />
 
     <item

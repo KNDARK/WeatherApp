@@ -1,5 +1,6 @@
 package com.example.weatherapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.weatherapp.ItemDetailFragment;
+import com.example.weatherapp.MainActivity;
 import com.example.weatherapp.Models.WeatherModel;
 import com.example.weatherapp.R;
 
@@ -45,7 +48,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.WeatherViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WeatherViewHolder holder, @SuppressLint("RecyclerView") int position) {
         WeatherModel weather = listWeather.get(position);
         if (weather == null) return;
         int temp = (int) (Double.parseDouble(String.valueOf(weather.main.temp)) - 273.15);
@@ -67,6 +70,15 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.WeatherViewHol
         holder.tvHour.setText(hour);
         holder.tvDate.setText(date);
         holder.tvDescription.setText(weather.weather.get(0).description);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WeatherModel x = listWeather.get(position);
+                Log.d("@@@@#", "onClick: "+mContext);
+                ((MainActivity)mContext).dataSend = x;
+                ((MainActivity)mContext).show_item_detail(new ItemDetailFragment());
+            }
+        });
     }
 
     @Override

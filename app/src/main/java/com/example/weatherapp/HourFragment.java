@@ -43,6 +43,7 @@ public class HourFragment extends Fragment {
         if (getArguments() != null) {
 
         }
+        ((MainActivity)getActivity()).refresh_toolbar();
     }
 
     @Override
