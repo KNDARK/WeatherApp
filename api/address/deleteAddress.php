@@ -11,18 +11,21 @@
             while($row1 = mysqli_fetch_assoc($data_dress)){
                 $sql = "DELETE FROM `Address` WHERE id = '" . $row1["id"] . "'";
                 if (mysqli_query($con, $sql)) {
-                    $result = ["status" => true];
-                    echo json_encode($result);
+                    echo json_encode([
+                        "status" => true
+                    ]);
                 } else {
-                    $result = ["status" => false];
-                    echo json_encode($result);
+                    echo json_encode([
+                        "status" => false
+                    ]);
                 }
                 mysqli_close($con);
             }
         }
         else{            
-            $result = ["status" => false];
-            echo json_encode($result);
+            echo json_encode([
+                "status" => false
+            ]);
         }
     }
  ?>

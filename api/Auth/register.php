@@ -8,17 +8,20 @@
         $name = $_POST["name"];
         $address = $_POST["idAddress"];
         if($email == $row["email"]){
-            $result = ["status" => false];
-            echo json_encode($result);
+            echo json_encode([
+                "status" => false
+            ]);
         }
         else{
             $sql = "INSERT INTO `User` (`name`, `email`, `password`, `idAddress`) VALUES ('$name', '$email', '$pass', '$address')";
             if (mysqli_query($con, $sql)) {
-                $result = ["status" => true];
-                echo json_encode($result);
+                echo json_encode([
+                    "status" => true
+                ]);
             } else {
-                $result = ["status" => false];
-                echo json_encode($result);
+                echo json_encode([
+                    "status" => false
+                ]);
             }
             mysqli_close($con);
         }

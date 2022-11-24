@@ -6,12 +6,18 @@
         $email = $_POST["email"];
         $pass = $_POST["password"];
         if($email == $row["email"] && $pass == $row["password"]){
-            $result = ["Email" => $user, "Password" => $pass, "status" => true];
-            echo json_encode($result);
+            echo json_encode([
+                "Email" => $user, 
+                "Password" => $pass, 
+                "status" => true
+            ]);
         }
         else{            
-            $result = ["Email" => "", "Password" => "", "status" => false];
-            echo json_encode($result);
+            echo json_encode([
+                "Email" => "", 
+                "Password" => "", 
+                "status" => false
+            ]);
         }
     }
  ?> 

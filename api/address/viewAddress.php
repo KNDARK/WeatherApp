@@ -7,7 +7,6 @@
         $pass = $_POST["password"];
         if($email == $row["email"] && $pass == $row["password"]){
 			class Address {
-		
 				function Address($idAddress, $name)
 				{
 					$this->id  = $idAddress;
@@ -23,11 +22,15 @@
 					$row1['name'])
 			  	);
             }
-			echo json_encode($arrayAddress);
+			echo json_encode([
+                "status" => true,
+				"data" => $arrayAddress
+            ]);
         }
         else{            
-            $result = ["status" => false];
-            echo json_encode($result);
+            echo json_encode([
+                "status" => false
+            ]);
         }
     }
  ?>

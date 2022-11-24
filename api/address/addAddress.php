@@ -11,25 +11,29 @@
             while($row1 = mysqli_fetch_assoc($data_dress)){
                 $address = $_POST["address"];
                 if($address == $row1["name"]){
-                    $result = ["status" => false];
-                    echo json_encode($result);
+                    echo json_encode([
+                        "status" => false
+                    ]);
                 }
                 else{
                     $sql = "INSERT INTO `Address` (`name`) VALUES ('$address')";
                     if (mysqli_query($con, $sql)) {
-                        $result = ["status" => true];
-                        echo json_encode($result);
+                        echo json_encode([
+                            "status" => true
+                        ]);
                     } else {
-                        $result = ["status" => false];
-                        echo json_encode($result);
+                        echo json_encode([
+                            "status" => false
+                        ]);
                     }
                     mysqli_close($con);
                 }
             }
         }
         else{            
-            $result = ["status" => false];
-            echo json_encode($result);
+            echo json_encode([
+                "status" => false
+            ]);
         }
     }
  ?>

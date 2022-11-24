@@ -5,7 +5,7 @@
 	$database = "id19889615_weatherct";
 
 	$con = mysqli_connect($hostname, $username, $password, $database);
-	if (!$conn) {
+	if (!$con) {
 		die("Connection failed: " . mysqli_connect_error());
 	}
  ?>
