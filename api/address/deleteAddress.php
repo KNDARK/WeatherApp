@@ -9,22 +9,15 @@
         $pass = $_POST["password"];
         if($email == $row["email"] && $pass == $row["password"]){
             while($row1 = mysqli_fetch_assoc($data_dress)){
-                $address = $_POST["address"];
-                if($address == $row1["name"]){
+                $sql = "DELETE FROM `Address` WHERE id = '" . $row1["id"] . "'";
+                if (mysqli_query($con, $sql)) {
+                    $result = ["status" => true];
+                    echo json_encode($result);
+                } else {
                     $result = ["status" => false];
                     echo json_encode($result);
                 }
-                else{
-                    $sql = "INSERT INTO `Address` (`name`) VALUES ('$address')";
-                    if (mysqli_query($con, $sql)) {
-                        $result = ["status" => true];
-                        echo json_encode($result);
-                    } else {
-                        $result = ["status" => false];
-                        echo json_encode($result);
-                    }
-                    mysqli_close($con);
-                }
+                mysqli_close($con);
             }
         }
         else{            

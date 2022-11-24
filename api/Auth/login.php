@@ -3,13 +3,16 @@
 	$query = "SELECT * FROM `User`";
 	$data = mysqli_query($con, $query);
     while($row = mysqli_fetch_assoc($data)){
-        $user = $row["editText_email"];
-        $pass = $row["editText_password"];
-        if($user == $row["email"] && $pass == $row["password"]){
-            echo json_encode(true);
+        $email = $_POST["email"];
+        $pass = $_POST["password"];
+        if($email == $row["email"] && $pass == $row["password"]){
+            $result = ["Email" => $user, "Password" => $pass, "status" => true];
+            echo json_encode($result);
         }
-        else{
-            echo json_encode(false);
+        else{            
+            $result = ["Email" => "", "Password" => "", "status" => false];
+            echo json_encode($result);
         }
     }
- ?>
+ ?> 
+ <!-- DONE -->

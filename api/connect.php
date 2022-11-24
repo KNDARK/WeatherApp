@@ -1,9 +1,11 @@
 <?php 
 	$hostname = "localhost";
-	$username = "id19885245_triscode";
+	$username = "id19889615_triscode";
 	$password = "KhuongVietNghia@123";
-	$database = "id19885245_weatherct";
+	$database = "id19889615_weatherct";
 
 	$con = mysqli_connect($hostname, $username, $password, $database);
-	mysqli_query($con, "SET NAMES 'utf8'");
+	if (!$conn) {
+		die("Connection failed: " . mysqli_connect_error());
+	}
  ?>
