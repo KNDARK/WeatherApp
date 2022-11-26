@@ -104,7 +104,7 @@ public class Login extends Fragment {
         }
         Log.d("@@@@@", "mydata: "+myData);
         String[] data = myData.split("\n");
-        if(!myData.equals("") && data.length >= 5){
+        if(!myData.equals("") && data.length >= 4){
             ApiUserService.apiUserService.getUser(data[0], data[1]).enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
