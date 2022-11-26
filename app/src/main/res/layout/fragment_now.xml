@@ -52,7 +52,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="100dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -60,9 +60,17 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:weightSum="6"
+                android:weightSum="10"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="@string/do_am"
+                    android:textColor="@color/color_text_default"
+                    android:gravity="center"
+                    android:textSize="15sp"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -83,9 +91,16 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:weightSum="6"
+                android:weightSum="10"
                 android:orientation="vertical">
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="@string/toc_do_gio"
+                    android:textColor="@color/color_text_default"
+                    android:gravity="center"
+                    android:textSize="15sp"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -103,6 +118,13 @@
             </LinearLayout>
 
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/weather_24h"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">

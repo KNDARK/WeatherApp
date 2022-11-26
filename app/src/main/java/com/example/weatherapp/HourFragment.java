@@ -68,7 +68,7 @@ public class HourFragment extends Fragment {
             public void onResponse(Call<WeathersModel> call, Response<WeathersModel> response) {
                 WeathersModel weather = response.body();
                 if (weather != null && weather.cod.equals("200")) {
-                    int count = 0;
+                    ArrayList<WeatherModel> weathers = new ArrayList<WeatherModel>();
                     for (WeatherModel i : weather.list){
                         weathers.add(i);
                     }

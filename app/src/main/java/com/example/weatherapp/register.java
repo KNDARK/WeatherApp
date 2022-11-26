@@ -4,62 +4,66 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link register#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.weatherapp.Api.ApiUserService;
+import com.example.weatherapp.Models.UserModel;
+import com.example.weatherapp.databinding.FragmentLocationBinding;
+import com.example.weatherapp.databinding.FragmentRegisterBinding;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class register extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public register() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment register.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static register newInstance(String param1, String param2) {
-        register fragment = new register();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    FragmentRegisterBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         ((MainActivity)getActivity()).hidden_auth();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentRegisterBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).setFragment(new Login());
+            }
+        });
+        binding.btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiUserService.apiUserService.register(binding.edtEmail.getText().toString(),
+                        binding.edtPassword.getText().toString(),binding.edtName.getText().toString(),
+                        binding.edtLocation.getText().toString()).enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        Log.d("@@@@", "load: ");
+                        UserModel user = response.body();
+                        if (user != null && user.status){
+                            ((MainActivity)getActivity()).setFragment(new Login());
+                            Toast.makeText(getContext(), "Đăng ký thành công!", Toast.LENGTH_LONG).show();
+                        }
+                        else Toast.makeText(getContext(), "Email đã tồn tại!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        Toast.makeText(getContext(), "Lỗi server đăng ký !", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        return view;
     }
 }

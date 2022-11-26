@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.transition.Explode;
+import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -20,6 +21,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.weatherapp.Api.ApiUserService;
+import com.example.weatherapp.Models.UserModel;
 import com.example.weatherapp.Models.WeatherModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -32,6 +35,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public MaterialToolbar toolbar;
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public HourFragment fgHour = new HourFragment();
     public DateFragment fgDate = new DateFragment();
     public WeatherModel dataSend;
+    public UserModel user = new UserModel();
 
 
     @Override
@@ -115,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     public void set_view_location(String city){
@@ -188,12 +201,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void show_menu_left() {
-        setAnimation();
+        Transition slide = new Slide();
+        slide.setDuration(300);
+        slide.setStartDelay(100);
+        TransitionManager.beginDelayedTransition(layoutMain, slide);
         menuLeft.setVisibility(View.VISIBLE);
     }
 
     public void hide_menu_left() {
-        setAnimation();
+        Transition slide = new Slide();
+        slide.setDuration(300);
+        slide.setStartDelay(100);
+        TransitionManager.beginDelayedTransition(layoutMain, slide);
         menuLeft.setVisibility(View.GONE);
     }
 
