@@ -7,12 +7,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.weatherapp.Api.ApiUserService;
 import com.example.weatherapp.Controllers.Controller;
+import com.example.weatherapp.Models.UserModel;
 import com.example.weatherapp.databinding.FragmentLoginBinding;
 
 import java.io.BufferedReader;
@@ -24,6 +27,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,14 +83,46 @@ public class Login extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         ((MainActivity)getActivity()).hidden_auth();
-        if (((MainActivity)getActivity()).check_login())
-            ((MainActivity)getActivity()).setFragment( ((MainActivity)getActivity()).fgNow);
-        else {
-            ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_default));
-            ContextWrapper contextWrapper = new ContextWrapper(getContext());
-            File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
-            myInternalFile = new File(directory, fileName);
-            ((MainActivity)getActivity()).hidden_auth();
+        String myData = "";
+        ContextWrapper contextWrapper = new ContextWrapper(getContext());
+        File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
+        myInternalFile = new File(directory, fileName);
+        ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_default));
+        ((MainActivity)getActivity()).hidden_auth();
+        try {
+            FileInputStream fis = new FileInputStream(myInternalFile);
+            DataInputStream in = new DataInputStream(fis);
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(in));
+            String strLine;
+            while ((strLine = br.readLine()) != null) {
+                myData += strLine + "\n";
+            }
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("@@@@@", "mydata: "+myData);
+        String[] data = myData.split("\n");
+        if(!myData.equals("") && data.length >= 5){
+            ApiUserService.apiUserService.getUser(data[0], data[1]).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    UserModel user = response.body();
+                    if (user != null && user.status){
+                        ((MainActivity)getActivity()).setFragment( ((MainActivity)getActivity()).fgNow);
+                        ((MainActivity)getActivity()).user = user;
+                    }
+                    else {
+                        Log.d("@@@@@", "else: ");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    Log.d("@@@@@", "back: ");
+                }
+            });
         }
     }
 
@@ -102,20 +141,31 @@ public class Login extends Fragment {
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Controller action = new Controller();
-                checkLogin = action.check_login(binding.edtEmail.getText().toString(), binding.edtPassword.getText().toString());
-                if (checkLogin){
-                    Toast.makeText(getContext(), "Success login", Toast.LENGTH_SHORT).show();
-                    try {
-                        FileOutputStream fos = new FileOutputStream(myInternalFile);
-                        fos.write("OKKKKK".getBytes());
-                        fos.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                ApiUserService.apiUserService.getUser(binding.edtEmail.getText().toString(), binding.edtPassword.getText().toString()).enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        UserModel user = response.body();
+                        if (user != null && user.status){
+                            Toast.makeText(getContext(), "Success login", Toast.LENGTH_SHORT).show();
+                            try {
+                                FileOutputStream fos = new FileOutputStream(myInternalFile);
+                                String textSave = user.getEmail() + "\n" + user.getPassword() + "\n" + user.getName() + "\n" + user.getLocation();
+                                fos.write(textSave.getBytes());
+                                fos.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            ((MainActivity)getActivity()).setFragment(((MainActivity)getActivity()).fgNow);
+                            ((MainActivity)getActivity()).user = user;
+                        }
+                        else Toast.makeText(getContext(), "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
-                    ((MainActivity)getActivity()).setFragment(((MainActivity)getActivity()).fgNow);
-                }
-                else Toast.makeText(getContext(), "Failed login", Toast.LENGTH_SHORT).show();
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        Toast.makeText(getContext(), "Failed login", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         // Inflate the layout for this fragment

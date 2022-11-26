@@ -130,9 +130,10 @@ public class NowFragment extends Fragment {
             public void onResponse(Call<WeathersModel> call, Response<WeathersModel> response) {
                 WeathersModel weather = response.body();
                 if (weather != null && weather.cod.equals("200")) {
+                    ArrayList<WeatherModel> weathers = new ArrayList<WeatherModel>();
                     int count = 0;
                     for (WeatherModel i : weather.list){
-                        if (count < 6) weathers.add(i);
+                        if (count < 8) weathers.add(i);
                         else break;
                         count++;
                     }

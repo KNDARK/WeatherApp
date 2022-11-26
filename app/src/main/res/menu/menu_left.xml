@@ -6,15 +6,15 @@
         <item
             android:id="@+id/item1"
             android:icon="@color/background_low"
-            android:title="item 1"
+            android:title="Thông tin user"
             android:checked="true" />
         <item
             android:id="@+id/item2"
             android:icon="@color/background_item"
-            android:title="item 2" />
-        <item
-            android:id="@+id/item3"
-            android:icon="@drawable/logout_icon_item"
-            android:title="@string/logout" />
+            android:title="About" />
     </group>
+    <item
+        android:id="@+id/item3"
+        android:icon="@drawable/logout_icon_item"
+        android:title="@string/logout" />
 </menu>

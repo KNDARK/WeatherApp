@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".register">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/back_icon"
+        android:id="@+id/btn_back"/>
 
     <LinearLayout
         android:layout_margin="30dp"
@@ -57,6 +62,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/edt_name"
                     android:hint="Enter your Name"/>
             </LinearLayout>
             <LinearLayout
@@ -72,26 +78,10 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/edt_email"
                     android:hint="Enter your Email"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/ic_baseline_add_home_work_24"/>
-                <EditText
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Enter your address"
-                    android:inputType="textPassword"/>
-            </LinearLayout>
-            <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -104,8 +94,26 @@
                     android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/edt_password"
                     android:hint="Enter your password"
                     android:inputType="textPassword"/>
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_add_home_work_24"/>
+                <EditText
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/edt_location"
+                    android:hint="Enter your location"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -117,7 +125,8 @@
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="Register"
+                android:id="@+id/btn_register"
                 android:backgroundTint="#4CAF50"/>
         </LinearLayout>
     </LinearLayout>
