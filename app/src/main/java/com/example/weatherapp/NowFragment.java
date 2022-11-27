@@ -47,8 +47,8 @@ public class NowFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     ArrayList<WeatherModel> weathers = new ArrayList<WeatherModel>();
     WeatherAdapter weatherAdapter;
-    public boolean run = false;
-    public String location = "Thành phố Đà Nẵng";
+    public boolean run = true;
+    public String location = "";
     int threadCount = 0;
 
     // TODO: Rename and change types of parameters
@@ -89,8 +89,6 @@ public class NowFragment extends Fragment {
                 Locale locale = new Locale("vi", "VN");
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, locale);
                 String date = dateFormat.format(new Date());
-
-                Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
                 WeatherModel weather = response.body();
                 if (weather != null && weather.cod == 200) {
                     Log.d("@@@@", "OK: "+weather.name);
@@ -162,9 +160,8 @@ public class NowFragment extends Fragment {
         ((MainActivity)getActivity()).layoutMain.setBackground(getResources().getDrawable(R.drawable.background_main));
         ((MainActivity)getActivity()).refresh_toolbar();
     }
-
+ // 10 phút reload api 1 lần
     public void worker(){
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -174,7 +171,7 @@ public class NowFragment extends Fragment {
                         getWeather();
                         get_weather_hour();
                         Log.d("@@@@", "run: "+ threadCount);
-                        Thread.sleep(6000);
+                        Thread.sleep(600000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

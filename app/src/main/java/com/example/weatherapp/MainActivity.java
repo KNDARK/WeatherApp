@@ -10,7 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weatherapp.Api.ApiUserService;
@@ -52,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
     File myInternalFile;
     public NowFragment fgNow = new NowFragment();
     public HourFragment fgHour = new HourFragment();
-    public DateFragment fgDate = new DateFragment();
     public WeatherModel dataSend;
+    TextView tvName;
     public UserModel user = new UserModel();
+    final int LOADING_TIME = 1000;
 
 
     @Override
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         layoutMain = findViewById(R.id.layout_main);
         toolbar = findViewById(R.id.tool_bar);
         setFragment(new Login());
+
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File directory = contextWrapper.getDir(filePath, Context.MODE_PRIVATE);
         myInternalFile = new File(directory, fileName);
@@ -78,9 +84,15 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.toString().equals("location")){
-                    setAnimation();
-                    show_item_detail(new LocationFragment());
+                switch (item.toString()){
+                    case "location":
+                        setAnimation();
+                        show_item_detail(new LocationFragment());
+                        break;
+                    case "About":
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100007498090194"));
+                        startActivity(browserIntent);
+                        break;
                 }
                 return false;
             }
@@ -91,11 +103,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 menuLeft.setCheckedItem(item);
-                Log.d("@@@@@", "choose: "+ item);
                 hide_menu_left();
-                if (item.toString().equals("Đăng xuất")) {
-                    Log.d("@@@@@", "logout");
-                    logout();
+                switch (item.toString()){
+                    case "Đăng xuất":
+                        logout();
+                        break;
+                    case "About":
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100007498090194"));
+                        startActivity(browserIntent);
+                        break;
+                    case "Thông tin user":
+                        String text = "Email: " + user.getEmail()+ "\nTên: "+ user.getName()+"\nThành phố: "+user.getLocation();
+                        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                        break;
                 }
                 return true;
             }
@@ -115,10 +135,6 @@ public class MainActivity extends AppCompatActivity {
                         setAnimation();
                         setFragment(fgHour);
                         break;
-                    case "Date":
-                        setAnimation();
-                        setFragment(fgDate);
-                        break;
                 }
                 return true;
             }
@@ -128,6 +144,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+
+
+    public void set_info(){
+        tvName = findViewById(R.id.tv_name);
+        tvName.setText(user.getName());
     }
 
     public void set_view_location(String city){
@@ -179,26 +201,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
-    public boolean check_login(){
-        String myData = "";
-        try {
-            FileInputStream fis = new FileInputStream(myInternalFile);
-            DataInputStream in = new DataInputStream(fis);
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(in));
-            String strLine;
-            while ((strLine = br.readLine()) != null) {
-                myData += strLine;
-            }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Toast.makeText(this, myData, Toast.LENGTH_SHORT).show();
-        if (myData.equals("OKKKKK")) return true;
-        return false;
-    }
 
     public void show_menu_left() {
         Transition slide = new Slide();
