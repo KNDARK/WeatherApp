@@ -48,6 +48,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
                 Log.d("@@@@#", "onClick: "+mContext);
                 ((MainActivity)mContext).set_view_location(x);
                 ((MainActivity)mContext).refresh_toolbar();
+                ((MainActivity)mContext).bottomNav.setSelectedItemId(0);
             }
         });
     }

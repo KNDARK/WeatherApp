@@ -7,7 +7,4 @@
     <item android:title="Hour"
         android:icon="@drawable/icon_weather_login"
         app:showAsAction="ifRoom"/>
-    <item android:title="Date"
-        android:icon="@drawable/cloud_default"
-        app:showAsAction="ifRoom"/>
 </menu>

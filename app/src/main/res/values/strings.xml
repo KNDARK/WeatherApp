@@ -13,4 +13,5 @@
     <string name="do_am">Độ ẩm</string>
     <string name="toc_do_gio">Tốc độ gió</string>
     <string name="weather_24h">Thời tiết 24H tới</string>
+    <string name="remember_login">Remember login</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.weatherapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Bundle;
@@ -42,8 +43,7 @@ public class Login extends Fragment {
     private final String fileName = "login.txt";
     private final String filePath = "data";
     File myInternalFile;
-    String myData = "";
-    public boolean checkLogin = false;
+    ProgressDialog loading;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,6 +78,7 @@ public class Login extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loading = new ProgressDialog(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -105,6 +106,7 @@ public class Login extends Fragment {
         Log.d("@@@@@", "mydata: "+myData);
         String[] data = myData.split("\n");
         if(!myData.equals("") && data.length >= 4){
+            loading.show();
             ApiUserService.apiUserService.getUser(data[0], data[1]).enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -112,15 +114,20 @@ public class Login extends Fragment {
                     if (user != null && user.status){
                         ((MainActivity)getActivity()).setFragment( ((MainActivity)getActivity()).fgNow);
                         ((MainActivity)getActivity()).user = user;
+                        ((MainActivity)getActivity()).set_info();
+                        ((MainActivity)getActivity()).set_view_location(user.getLocation());
+                        loading.hide();
                     }
                     else {
                         Log.d("@@@@@", "else: ");
+                        loading.hide();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserModel> call, Throwable t) {
                     Log.d("@@@@@", "back: ");
+                    loading.hide();
                 }
             });
         }
@@ -141,6 +148,7 @@ public class Login extends Fragment {
         binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loading.show();
                 ApiUserService.apiUserService.getUser(binding.edtEmail.getText().toString(), binding.edtPassword.getText().toString()).enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -148,17 +156,26 @@ public class Login extends Fragment {
                         if (user != null && user.status){
                             Toast.makeText(getContext(), "Success login", Toast.LENGTH_SHORT).show();
                             try {
-                                FileOutputStream fos = new FileOutputStream(myInternalFile);
-                                String textSave = user.getEmail() + "\n" + user.getPassword() + "\n" + user.getName() + "\n" + user.getLocation();
-                                fos.write(textSave.getBytes());
-                                fos.close();
+                                if (binding.cbRemember.isChecked()){
+                                    FileOutputStream fos = new FileOutputStream(myInternalFile);
+                                    String textSave = user.getEmail() + "\n" + user.getPassword() + "\n" + user.getName() + "\n" + user.getLocation();
+                                    fos.write(textSave.getBytes());
+                                    fos.close();
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                             ((MainActivity)getActivity()).setFragment(((MainActivity)getActivity()).fgNow);
                             ((MainActivity)getActivity()).user = user;
+                            ((MainActivity)getActivity()).set_view_location(user.getLocation());
+                            Toast.makeText(getContext(), ""+user.getLocation(), Toast.LENGTH_SHORT).show();
+                            ((MainActivity)getActivity()).set_info();
+                            loading.hide();
                         }
-                        else Toast.makeText(getContext(), "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                        else {
+                            loading.hide();
+                            Toast.makeText(getContext(), "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

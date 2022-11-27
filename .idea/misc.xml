@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/activity_item_detail.xml" value="0.17" />
+        <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/activity_loading.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/activity_location.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/city_item.xml" value="0.19010416666666666" />
@@ -13,12 +14,15 @@
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_hour.xml" value="0.10885416666666667" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_item_detail.xml" value="0.22" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_location.xml" value="0.20416666666666666" />
-        <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_login.xml" value="0.19010416666666666" />
+        <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_mylocation.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_now.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/fragment_register.xml" value="0.22" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/header.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/hour_item.xml" value="0.18" />
+        <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/loading.xml" value="0.19010416666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/menu_left.xml" value="0.12907608695652173" />
+        <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/my_city_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/layout/weather_hour_main.xml" value="0.22" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21" />
         <entry key="..\:/Android/WeatherApp/app/src/main/res/menu/menu_left.xml" value="0.20416666666666666" />
