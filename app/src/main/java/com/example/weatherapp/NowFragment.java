@@ -138,6 +138,7 @@ public class NowFragment extends Fragment {
                     weatherAdapter.setData(weathers);
                 }
                 else {
+                    ((MainActivity)getActivity()).set_view_location(((MainActivity)getActivity()).toolbar.getTitle().toString());
                     Toast.makeText(getContext() , R.string.location_notfound, Toast.LENGTH_SHORT).show();
                 }
             }

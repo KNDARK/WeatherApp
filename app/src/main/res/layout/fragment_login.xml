@@ -37,7 +37,7 @@
                     android:textColor="#FFFFFF"
                     android:textSize="34sp"
                     android:textStyle="bold"
-                    android:text="Login Weather"/>
+                    android:text="@string/login_weather"/>
             </LinearLayout>
             <ImageView
                 android:layout_gravity="center"
@@ -64,10 +64,13 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:id="@+id/edt_email"
-                    android:hint="Enter your User"/>
+                    android:shadowColor="@color/yellow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:hint="@string/enter_your_user"/>
             </LinearLayout>
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="25dp"
@@ -81,16 +84,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/edt_password"
-                    android:hint="Enter your password"
+                    android:shadowColor="@color/yellow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:hint="@string/enter_your_password"
                     android:textColor="@color/white"
                     android:inputType="textPassword"/>
-
             </LinearLayout>
             <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
                 android:id="@+id/cb_remember"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
                 android:text="@string/remember_login"/>
         </LinearLayout>
         <LinearLayout

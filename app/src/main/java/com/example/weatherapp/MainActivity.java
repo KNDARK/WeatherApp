@@ -157,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
         fgNow.setLocation(city);
         fgNow.getWeather();
         fgNow.get_weather_hour();
+        Log.d("@@@@", "set_view_location: "+city);
+        fgHour.setLocation(city);
     }
 
     public void call_back(Fragment fragment){
