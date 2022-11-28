@@ -32,9 +32,13 @@ public class HourFragment extends Fragment {
     FragmentHourBinding binding;
     ArrayList<WeatherModel> weathers = new ArrayList<WeatherModel>();
     HourAdapter HourAdapter;
+    public String location = "";
 
     public HourFragment() {
         // Required empty public constructor
+    }
+    public void setLocation(String location){
+        this.location = location;
     }
 
     @Override
@@ -55,12 +59,12 @@ public class HourFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         binding.rcvShow.setLayoutManager(linearLayoutManager);
         binding.rcvShow.setAdapter(HourAdapter);
-        get_weather_hour("Thành phố Đà Nẵng");
+        get_weather_hour();
         Log.d("@@@@@@", "onCreateView: ");
         return view;
     }
 
-    public void get_weather_hour(String location){
+    public void get_weather_hour(){
         Controller action = new Controller();
         String locationConvert = action.convert_city(location);
         ApiService.apiService.getListWeather(locationConvert, ApiService.KEY_ID, ApiService.LANGUAGE).enqueue(new Callback<WeathersModel>() {
@@ -72,7 +76,7 @@ public class HourFragment extends Fragment {
                     for (WeatherModel i : weather.list){
                         weathers.add(i);
                     }
-                    HourAdapter.setData(weathers);
+                    if (weathers != null) HourAdapter.setData(weathers);
                 }
                 else {
                     Toast.makeText(getContext() , R.string.location_notfound, Toast.LENGTH_SHORT).show();

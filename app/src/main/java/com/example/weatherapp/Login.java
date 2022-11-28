@@ -165,9 +165,11 @@ public class Login extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            ((MainActivity)getActivity()).setFragment(((MainActivity)getActivity()).fgNow);
                             ((MainActivity)getActivity()).user = user;
                             ((MainActivity)getActivity()).set_view_location(user.getLocation());
+                            Log.d("@@@@", "xxxx: "+user.getLocation());
+                            ((MainActivity)getActivity()).setFragment(((MainActivity)getActivity()).fgNow);
+
                             Toast.makeText(getContext(), ""+user.getLocation(), Toast.LENGTH_SHORT).show();
                             ((MainActivity)getActivity()).set_info();
                             loading.hide();
