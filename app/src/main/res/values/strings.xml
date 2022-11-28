@@ -14,4 +14,13 @@
     <string name="toc_do_gio">Tốc độ gió</string>
     <string name="weather_24h">Thời tiết 24H tới</string>
     <string name="remember_login">Remember login</string>
+    <string name="enter_your_user">Enter your User</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="sign_up_weather">Sign up Weather</string>
+    <string name="enter_your_name">Enter your Name</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_location">Enter your location</string>
+    <string name="nh_p_v_tr">Nhập vị trí</string>
+    <string name="quan_ly_tinh_tp">Quản lý tỉnh thành phố</string>
+    <string name="login_weather">Login Weather</string>
 </resources>

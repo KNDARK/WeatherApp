@@ -37,7 +37,7 @@
                     android:textColor="#EF6115"
                     android:textSize="34dp"
                     android:textStyle="bold"
-                    android:text="Sign up Weather"/>
+                    android:text="@string/sign_up_weather"/>
             </LinearLayout>
             <ImageView
                 android:layout_gravity="center"
@@ -63,7 +63,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edt_name"
-                    android:hint="Enter your Name"/>
+                    android:shadowColor="@color/white"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:textColor="@color/white"
+                    android:shadowRadius="2"
+                    android:hint="@string/enter_your_name"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +84,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edt_email"
-                    android:hint="Enter your Email"/>
+                    android:shadowColor="@color/white"
+                    android:shadowDx="1"
+                    android:textColor="@color/white"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:hint="@string/enter_your_email"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +105,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/edt_password"
-                    android:hint="Enter your password"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:textColor="@color/white"
+                    android:shadowRadius="2"
+                    android:hint="@string/enter_your_password"
                     android:inputType="textPassword"/>
             </LinearLayout>
             <LinearLayout
@@ -113,7 +128,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/edt_location"
-                    android:hint="Enter your location"/>
+                    android:shadowColor="@color/white"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:textColor="@color/white"
+                    android:shadowRadius="2"
+                    android:hint="@string/enter_your_location"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
